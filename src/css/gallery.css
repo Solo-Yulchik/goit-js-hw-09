@@ -1,0 +1,13 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.gallery-item {
+  flex: 0 1 calc(33.333% - 24px);
+}
+
+.back-link {
+  margin-bottom: 24px;
+}
