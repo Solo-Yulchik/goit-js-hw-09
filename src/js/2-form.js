@@ -1,31 +1,30 @@
 'use strict';
 
 const form = document.querySelector('.feedback-form');
-const input = form.querySelector('.form-input');
-const textarea = form.querySelector('.form-textarea');
+const input = form.querySelector('[name="email"]');
+const textarea = form.querySelector('[name="message"]');
 const button = form.querySelector('.form-btn');
-form.addEventListener('input', handleInput);
-form.addEventListener('submit', handleSubmit);
-
+const KEY_FORM = 'feedback-form-state';
 let formData = {
   email: '',
   message: '',
 };
-const KEY_FORM = 'feedback-form-state';
 
-const getData = localStorage.getItem(KEY_FORM);
-const saveData = getData ? JSON.parse(getData) : { email: '', message: '' };
-formData = saveData;
-
-function handleInput(event) {
-  const type = event.target.type;
-  const value = event.target.value.trim();
-  if (type === 'email') {
-    formData.email = value;
-  } else {
-    formData.message = value;
+try {
+  const getData = localStorage.getItem(KEY_FORM);
+  if (getData) {
+    const parsed = JSON.parse(getData);
+    if (
+      typeof parsed === 'object' &&
+      parsed !== null &&
+      'email' in parsed &&
+      'message' in parsed
+    ) {
+      formData = parsed;
+    }
   }
-  localStorage.setItem(KEY_FORM, JSON.stringify(formData));
+} catch (error) {
+  console.error('Reading problems with localStorage:', error);
 }
 
 function getUserData() {
@@ -34,6 +33,21 @@ function getUserData() {
 }
 
 getUserData();
+
+form.addEventListener('input', handleInput);
+
+function handleInput(event) {
+  const name = event.target.name;
+  const value = event.target.value.trim();
+  if (name === 'email') {
+    formData.email = value;
+  } else {
+    formData.message = value;
+  }
+  localStorage.setItem(KEY_FORM, JSON.stringify(formData));
+}
+
+form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
