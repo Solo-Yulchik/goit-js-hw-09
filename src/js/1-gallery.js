@@ -84,22 +84,6 @@ function createMarkUp(arr){
 
 
 
-// function handleClick(event){
-    
-// if(!event.target.classList.contains("gallery-image")){
-//         return;
-        
-//     }
-//     event.preventDefault();
-
-// const instance = basicLightbox.create(`
-//     <img src="${event.target.dataset.source}">
-// `)
-
-// instance.show()
-    
-// }
-
 container.insertAdjacentHTML("beforeend", createMarkUp(images))
 
 
