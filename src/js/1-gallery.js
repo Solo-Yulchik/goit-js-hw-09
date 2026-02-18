@@ -1,3 +1,6 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 const images = [
   {
     preview:
@@ -99,8 +102,7 @@ function createMarkUp(arr){
 
 container.insertAdjacentHTML("beforeend", createMarkUp(images))
 
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+
 
 const gallery = new SimpleLightbox(".gallery a",{
     captions:true,
